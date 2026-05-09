@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Brain Downloader</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; background: #333; color: white; text-align: center; }
+        button { 
+            padding: 20px 40px; 
+            font-size: 24px; 
+            cursor: pointer; 
+            background: #00ff00; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+        }
+        button:hover { background: #00cc00; }
+        .status { margin-top: 20px; font-size: 18px; color: #ccc; }
+    </style>
+</head>
+<body>
+    <h2>AI Model Downloader</h2>
+    <p>Click the button to save the heavy AI files.</p>
+    
+    <button onclick="downloadBoth()">DOWNLOAD AI FILES</button>
+    
+    <div id="log" class="status"></div>
+
+    <script>
+        async function downloadBoth() {
+            const log = document.getElementById('log');
+            log.innerHTML = "Starting...";
+            
+            const files = [
+                { url: 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js', name: 'tf.min.js' },
+                { url: 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd/dist/coco-ssd.min.js', name: 'coco-ssd.min.js' }
+            ];
+
+            for (let file of files) {
+                try {
+                    const response = await fetch(file.url);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = file.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    log.innerHTML += `<p style="color:#00ff00">✅ Successfully saved <b>${file.name}</b></p>`;
+                } catch (err) {
+                    log.innerHTML += `<p style="color:red">❌ Error: ${err.message}</p>`;
+                }
+            }
+            log.innerHTML += "<p>Check your Downloads folder or move them to FocusTracker folder!</p>";
+        }
+    </script>
+</body>
+</html>

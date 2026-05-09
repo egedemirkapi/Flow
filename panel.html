@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div id="onboardingModal" class="modal-overlay">
+    <div class="modal-content" id="onboardingContent">
+      </div>
+  </div>
+
+  <div id="permissionModal" class="modal-overlay" style="background: rgba(0,0,0,0.95);">
+    <div class="modal-content">
+      <h3>Enable Focus Sensor</h3>
+      <p>FocusOS uses your camera to analyze your attention and head position locally.<br><br>
+      <strong>Privacy First:</strong> No video is recorded. No data is sent to the internet.</p>
+      <button id="btnGrantPermission" class="btn-primary">Allow Camera Access</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="brand">Flow</div>
+    <div class="connection-status" id="camStatus">System Init...</div>
+  </header>
+
+  <section class="metric-hero">
+    <button id="btnMinimize" title="Mini Mode">-</button>
+
+    <div class="timer-controls">
+      <button id="btnModeUp" class="mode-btn active">Stopwatch</button>
+      <button id="btnModeDown" class="mode-btn">Timer</button>
+    </div>
+    
+    <div class="value" id="timer">00:00:00</div>
+    
+    <div id="timerInputContainer" class="hidden">
+      <input type="number" id="minutesInput" placeholder="25" min="1" max="120"> 
+      <span class="unit">min</span>
+    </div>
+
+    <div class="sub-metric">
+      <span id="focusScore">0%</span> Focus Efficiency
+    </div>
+  </section>
+
+  <section class="monitor">
+    <video id="video" autoplay muted></video>
+    <div class="sensor-overlay">
+      <div id="statusIcon" class="status-icon"></div>
+      <span id="statusText">STANDBY</span>
+    </div>
+  </section>
+
+  <section class="controls">
+    <input type="text" id="taskInput" placeholder="Current Objective...">
+    <div id="actionButtons">
+      <button id="btnStart" class="btn-primary">Start Session</button>
+    </div>
+  </section>
+
+  <section class="data-view">
+    <div class="table-header">
+      <span>Select Tabs to Work On</span>
+      <button id="btnRefreshTabs" title="Refresh/Add Tabs">+</button>
+    </div>
+    <div id="tabListContainer" class="list-container"></div>
+  </section>
+
+  <script src="face-api.min.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
